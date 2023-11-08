@@ -1,0 +1,17 @@
+.container {
+    max-width: 500px;
+}
+
+.display {
+    border: 1px solid #000000;
+}
+
+.digit-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.button-row {
+    display: flex;
+    justify-content: space-between;
+}
