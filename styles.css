@@ -1,14 +1,12 @@
-.container {
+.calculator {
     max-width: 500px;
+    margin: 0 auto;
+    padding: 25px;
 }
 
-.display {
+.display-container {
     border: 1px solid #000000;
-}
-
-.digit-buttons {
-    display: flex;
-    flex-direction: column;
+    padding: 10px;
 }
 
 .button-row {
