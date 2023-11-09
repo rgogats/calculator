@@ -5,6 +5,7 @@ const decimalButton = document.querySelector('#decimal');
 const equalsButton = document.querySelector('button#equals');
 const operatorButtons = document.querySelectorAll('.operator');
 const clearButton = document.querySelector('#clear');
+const backspaceButton = document.querySelector('#backspace');
 
 const calculator = () => {
     // fn operate which takes 2 operands and 1 operator
@@ -15,9 +16,24 @@ const calculator = () => {
     console.log('operator buttons', operatorButtons);
     console.log('digit buttons', digitButtons);
 
-    // display user input
+    const setOperand = (e) => {
+        // if A and operator already set, B
+        // display logic: if input = 0 and A = 0 or input = 0 and B = 0 // regex approach, displayText.replace('^0+(?!$)', ''),
+        a && operator ? (
+            console.log('OPERAND B', e.target.innerText),
+            b += e.target.innerText,
+            console.log('a=', a, 'operator=', operator, 'b=', b)
+        ) : (
+            console.log('OPERAND A', e.target.innerText),
+            a += e.target.innerText,
+            console.log('a=', a, 'operator=', operator, 'b=', b)
+        );
+        e.target.innerText === '0' ? displayContainer.innerText = displayContainer.innerText.replace(/^0+/, '') : displayContainer.innerText += e.target.innerText;
+    };
+
     const setOperator = (e) => {
         console.log('Operator selected', e.target.innerText);
+        decimalButton.disabled = false;
         operator = e.target.innerText;
         a && b ? (
             // operator = e.target.innerText,
@@ -36,21 +52,6 @@ const calculator = () => {
         
         return operator;
     } 
-
-    const setOperand = (e) => {
-        // if A and operator already set, B
-        // display logic: if input = 0 and A = 0 or input = 0 and B = 0 // regex approach, displayText.replace('^0+(?!$)', ''),
-        a && operator ? (
-            console.log('OPERAND B', e.target.innerText),
-            b += e.target.innerText,
-            console.log('a=', a, 'operator=', operator, 'b=', b)
-        ) : (
-            console.log('OPERAND A', e.target.innerText),
-            a += e.target.innerText,
-            console.log('a=', a, 'operator=', operator, 'b=', b)
-        );
-        e.target.innerText === '0' ? displayContainer.innerText = displayContainer.innerText.replace(/^0+/, '') : displayContainer.innerText += e.target.innerText;
-    };
 
     const operate = () => {
         // all 3 values must be truthy, not null
@@ -72,6 +73,7 @@ const calculator = () => {
     };
 
     const calculateResult = () => {
+        decimalButton.disabled = a.includes('.') || (operator && b.includes('.'));
         const result = operate(a, operator, b).toFixed(2);
         displayContainer.innerText = result;
         console.log('result', result);
@@ -81,13 +83,21 @@ const calculator = () => {
     };
 
     const clearCalculator = () => {
-        console.log('clearing');
         a = '';
         operator = '';
         b = '';
         displayContainer.innerText = '';
+        console.log('cleared');
+    };
 
-        console.log('a', a, operator, b);
+    const backspace = () => {
+        console.log('backspacing');
+        let result;
+        a && b ? b = b.slice(0, b.length - 1)
+        : a && operator ? operator = ''
+        : a && !operator ? a = a.slice(0, a.length - 1) 
+        : '';
+        displayContainer.innerText = displayContainer.innerText.slice(0, displayContainer.innerText.length - 1);
     };
 
     [...digitButtons].forEach((button) => {
@@ -97,9 +107,13 @@ const calculator = () => {
     [...operatorButtons].forEach((button) => {
         button.addEventListener('click', setOperator);
     });
-    decimalButton.addEventListener('click', setOperand);
+    decimalButton.addEventListener('click', (e) => {
+        setOperand(e);
+        decimalButton.disabled = a.includes('.') || (operator && b.includes('.'));
+    });
     equalsButton.addEventListener('click', calculateResult);
     clearButton.addEventListener('click', clearCalculator);
+    backspaceButton.addEventListener('click', backspace);
 };
 
 calculator();
