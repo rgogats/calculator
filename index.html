@@ -10,35 +10,36 @@
     <div class="calculator">
         <div class="display-container">
             <span class="a-display"></span>
-            <span class="operation-display" aria-placeholder="N/A"></span>
+            <span class="operator-display" aria-placeholder="N/A"></span>
             <span class="b-display"></span>
         </div>
         <div class="button-container">
                 <div class="button-row">
-                    <button>1</button>
-                    <button>2</button>
-                    <button>3</button>
-                    <button>+</button>
+                    <button class="digit" id="1">1</button>
+                    <button class="digit" id="2">2</button>
+                    <button class="digit" id="3">3</button>
+                    <button class="operator" id="add">+</button>
                 </div>
                 <div class="button-row">
-                    <button>4</button>
-                    <button>5</button>
-                    <button>6</button>
-                    <button>-</button>
+                    <button class="digit" id="4">4</button>
+                    <button class="digit" id="5">5</button>
+                    <button class="digit"  id="6">6</button>
+                    <button class="operator" id="subtract">-</button>
                 </div>
                 <div class="button-row">
-                    <button>7</button>
-                    <button>8</button>
-                    <button>9</button>
-                    <button>÷</button>
+                    <button class="digit" id="7">7</button>
+                    <button class="digit" id="8">8</button>
+                    <button class="digit"  id="9">9</button>
+                    <button class="operator" id="divide">÷</button>
                 </div>
                 <div class="button-row">
-                    <button>0</button>
-                    <button>x</button>
+                    <button class="digit" id="0">0</button>
+                    <button class="operator" id="multiply">x</button>
                 </div>
             </div>  
             <div class="button-row">
-                <button>Clear</button>
+                <button id="clear">Clear</button>
+                <button id="decimal">.</button>
                 <button id="equals">=</button>
             </div>
         </div>  
