@@ -9,7 +9,7 @@ const clearButton = document.querySelector('#clear');
 const calculator = () => {
     // fn operate which takes 2 operands and 1 operator
     // has to handle addition, subtraction, multiplication, division
-    // ***could separate display refresh function and underlying calculations***
+    // ***refactor display refresh logic to separate behaviors***
     let [a, b, operator] = ['', '', ''];
 
     console.log('operator buttons', operatorButtons);
@@ -38,20 +38,18 @@ const calculator = () => {
     } 
 
     const setOperand = (e) => {
-        // needs conditional logic for Operator.  Operator Set ? => add operand B : add to operand A
+        // if A and operator already set, B
+        // display logic: if input = 0 and A = 0 or input = 0 and B = 0 // regex approach, displayText.replace('^0+(?!$)', ''),
         a && operator ? (
             console.log('OPERAND B', e.target.innerText),
-            // displayText.replace('^0+(?!$)', ''),
-            displayContainer.innerText += e.target.innerText,
             b += e.target.innerText,
             console.log('a=', a, 'operator=', operator, 'b=', b)
         ) : (
             console.log('OPERAND A', e.target.innerText),
-            // displayText.replace('^0+(?!$)', ''),
-            displayContainer.innerText += e.target.innerText,
             a += e.target.innerText,
             console.log('a=', a, 'operator=', operator, 'b=', b)
         );
+        e.target.innerText === '0' ? displayContainer.innerText = displayContainer.innerText.replace(/^0+/, '') : displayContainer.innerText += e.target.innerText;
     };
 
     const operate = () => {
